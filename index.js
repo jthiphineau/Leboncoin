@@ -10,6 +10,8 @@ app.use(formidableMiddleware());
 
 const userRoutes = require("./routes/user");
 app.use(userRoutes);
+const publishRoutes = require("./routes/publish");
+app.use(publishRoutes);
 
 mongoose.connect("mongodb://localhost/user", {
     useNewUrlParser: true,

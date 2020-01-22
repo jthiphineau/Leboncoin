@@ -57,21 +57,24 @@ router.post("/user/sign_up", async (req, res) => {
 });
 
 router.post("/user/log_in", async (req, res) => {
+
+    // console.log(req.fields.password);
     try {
         const user = await User.findOne({
             email: req.fields.email
         });
         if (user) {
+            // console.log("coucou");
+
+            // console.log("hash login ====", SHA256(req.fields.password + user.salt).toString(encBase64));
+            // console.log("user.hash =====", user.hash)
             if (
                 SHA256(req.fields.password + user.salt).toString(encBase64) === user.hash
             ) {
                 res.json({
                     _id: user._id,
                     token: user.token,
-                    account: {
-                        usernane: req.fields.username,
-                        phone: req.fields.phone
-                    }
+                    account: user.account
                 });
             } else {
                 res.json({
