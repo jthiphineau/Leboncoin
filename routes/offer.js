@@ -6,14 +6,14 @@ const encBase64 = require("crypto-js/enc-base64");
 
 
 // const User = require("../models/User");
-const Publish = require("../models/Publish");
+const Offer = require("../models/Offer");
 const isAuthenticated = require("../middleware/isAuthenticated");
 
 
 router.post("/offer/publish", isAuthenticated, async (req, res) => {
     // console.log(req.user)
     try {
-        const newPublish = new Publish({
+        const newOffer = new Offer({
             publishId: req.fields.publishId,
             title: req.fields.title,
             description: req.fields.description,
@@ -21,7 +21,7 @@ router.post("/offer/publish", isAuthenticated, async (req, res) => {
             // created: String,
             creator: req.fields.creator
         });
-        await newPublish.save();
+        await newOffer.save();
         res.json({
             message: "On est bien"
         });

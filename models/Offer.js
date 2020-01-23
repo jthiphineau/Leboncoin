@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const Publish = mongoose.model("Publish", {
+const Offer = mongoose.model("Offer", {
     publishId: String,
     title: String,
     description: String,
@@ -16,4 +16,4 @@ const Publish = mongoose.model("Publish", {
 
 
 });
-module.exports = Publish;
+module.exports = Offer;

@@ -10,8 +10,8 @@ app.use(formidableMiddleware());
 
 const userRoutes = require("./routes/user");
 app.use(userRoutes);
-const publishRoutes = require("./routes/publish");
-app.use(publishRoutes);
+const offerRoutes = require("./routes/offer");
+app.use(offerRoutes);
 
 mongoose.connect("mongodb://localhost/user", {
     useNewUrlParser: true,
@@ -19,6 +19,11 @@ mongoose.connect("mongodb://localhost/user", {
     useCreateIndex: true
 });
 
+app.get("/", (req, res) => {
+    res.json({
+        message: "Welcome to leboncoin API"
+    });
+});
 
 app.all("*", function (req, res) {
     res.send("Page not found");
