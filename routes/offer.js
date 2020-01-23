@@ -86,8 +86,19 @@ router.post("/offer/with-count", async (req, res) => {
             date: -1
         });
     }
-
+    //pagination
+    if (req.query.page) {
+        const resultLimit = 3;
+        search.limit(resultLimit).skip(resultLimit * (req.query.page - 1));
+    }
     const offers = await search;
     res.json(offers);
 });
+
+router.get("/offer/:id", async (req, res) => {
+
+
+
+})
+
 module.exports = router;
