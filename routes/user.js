@@ -5,7 +5,7 @@ const uid2 = require("uid2");
 const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-Base64");
 
-
+//route user
 const User = require("../models/User");
 
 router.post("/user/sign_up", async (req, res) => {

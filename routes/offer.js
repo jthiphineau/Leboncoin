@@ -41,4 +41,53 @@ router.post("/offer/publish", isAuthenticated, async (req, res) => {
     }
 });
 
+//fonction createFilter
+const createFilters = req => {
+
+    const filters = {};
+
+    if (req.query.priceMin) {
+        filters.price = {};
+        filters.price.$gte = req.query.priceMin;
+    }
+    if (req.query.priceMax) {
+        if (filters.price === undefined) {
+            filters.price = {};
+        }
+        filters.price.$lte = req.query.priceMax;
+    }
+    if (req.query.title) {
+        filters.title = new RegExp(req.query.title, "i");
+    }
+
+    return filters;
+};
+
+router.post("/offer/with-count", async (req, res) => {
+    const filters = createFilters(req);
+    const search = Offer.find(filters);
+    //classer en ordre croissant/décroissant les prix
+    if (req.query.sort === "price-asc") {
+        search.sort({
+            price: 1
+        });
+    } else if (req.query.sort === "price-desc") {
+        search.sort({
+            price: -1
+        });
+    }
+    //classer en ordre croissant/décroissant les dates
+    if (req.query.sort === "date-asc") {
+        search.sort({
+            date: 1
+        });
+    } else if (req.query.sort === "date-desc") {
+        search.sort({
+            date: -1
+        });
+    }
+
+    const offers = await search;
+    res.json(offers);
+});
 module.exports = router;

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+//modèle Offer
 const Offer = mongoose.model("Offer", {
     title: {
         type: String,

@@ -4,10 +4,10 @@ const mongoose = require("mongoose");
 const app = express();
 const formidableMiddleware = require("express-formidable");
 app.use(formidableMiddleware());
+
+
+
 //authentication
-
-
-
 const userRoutes = require("./routes/user");
 app.use(userRoutes);
 const offerRoutes = require("./routes/offer");
