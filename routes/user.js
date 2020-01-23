@@ -41,6 +41,7 @@ router.post("/user/sign_up", async (req, res) => {
                     account: {
                         username: req.fields.username,
                         phone: req.fields.phone
+                        //ou account: newUser.account
                     }
                 });
             } else {
