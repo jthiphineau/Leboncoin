@@ -12,23 +12,33 @@ const isAuthenticated = require("../middleware/isAuthenticated");
 
 router.post("/offer/publish", isAuthenticated, async (req, res) => {
     // console.log(req.user)
+
     try {
-        const newOffer = new Offer({
-            publishId: req.fields.publishId,
+        const obj = {
             title: req.fields.title,
             description: req.fields.description,
             price: req.fields.price,
-            // created: String,
-            creator: req.fields.creator
-        });
+            creator: req.user
+        };
+
+        const newOffer = new Offer(obj);
         await newOffer.save();
         res.json({
-            message: "On est bien"
+            _id: newOffer._id,
+            title: newOffer.title,
+            description: newOffer.description,
+            price: newOffer.price,
+            created: newOffer.created,
+            creator: {
+                account: newOffer.creator.account,
+                _id: newOffer.creator._id
+            }
         });
     } catch (error) {
-        res.status(400).json({
+        res.json({
             error: error.message
         });
     }
 });
+
 module.exports = router;

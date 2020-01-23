@@ -1,16 +1,30 @@
 const mongoose = require("mongoose");
 
 const Offer = mongoose.model("Offer", {
-    publishId: String,
-    title: String,
-    description: String,
-    price: Number,
-    created: String,
+    title: {
+        type: String,
+        minlength: 1,
+        maxlength: 50,
+        required: true
+    },
+    description: {
+        type: String,
+        minlength: 1,
+        maxlength: 500,
+        required: true
+    },
+    price: {
+        type: Number,
+        min: 0,
+        max: 10000
+    },
+    created: {
+        type: Date,
+        default: Date.now
+    },
     creator: {
-        account: {
-            username: String,
-        },
-        userId: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 
 
